@@ -9,11 +9,8 @@ draft: false
 ---
 
 
+These are my personal notes from taking EECS119 and using Cadence Virtuoso. The way most tutorials show you how to do it is bizarre, and not at all how the software is supposed to be used. I had to figure a lot of this out by trial and error, and wanted to save others the trouble for the future. This obviously doesn't cover everything and I'm still very much a beginner when it comes to using Cadence, but should be helpful for those in EECS119 or just starting out with VLSI. 
 
-These are my personal notes from taking EECS119 and using Cadence Virtuoso. The way most tutorials show you how to do it is bizarre, and not at all how the software is supposed to be used. I had to figure a lot of this out by trial and error, and wanted to save others the trouble for the future. This obviously doesn't cover everything and I'm still very much a beginner when it comes to using Cadence, but should be helpful for people also just starting out with VLSI design. 
-
-
-**I recommend that you read through _every bullet point_ in this document; if I took the time to write it down here, there's a reason why.**
 
 ---
 
@@ -29,8 +26,8 @@ These are my personal notes from taking EECS119 and using Cadence Virtuoso. The 
 * Connect outputs of circut testbench to the `noConn` component from the `basic` library. Eliminates DRC error about unconnected node. 
 
 ### Layout
-> [!WARNING]
-> Most importantly: Do DRC Regularly and _NEVER_ do layout before testing that your schematic works
+<!-- this was a callout -->
+**Most importantly: Do DRC Regularly and _NEVER_ do layout before testing your schematic in simulation**
 
 * Use wires (*Not Rectangles*) to connect components/instances: `ctrl+shift+w`
 * Insert your custom components like normal components into the layout, and connect them by drawing onto their metal traces. As such, when you draw your inner components leave space at the end of the trace the pins are on to connect to. 
