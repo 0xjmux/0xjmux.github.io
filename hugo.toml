@@ -11,6 +11,15 @@ defaultContentLanguage = 'en-us'
     languageName = 'English(United States)'
     weight = 10
 
+
+# fix issue with goldmark rendering engine
+[markup.goldmark]
+    [markup.goldmark.extensions]
+      typographer = false
+#    [markup.goldmark.extensions.typographer]
+#        apostrophe = '&rsquo;'
+
+
 # Pagination
 paginate = 10
 paginatePath = "page"
@@ -37,8 +46,8 @@ disableKinds=["sitemap","comment"]
 [params]
 author = "Jacob Bokor"
 subtitle = ""
-description = "Engineer & Student fascinated with embedded systems, low-level software, and the hardware-software interface in general."
-welcomeMessage = "we out here"
+description = "Engineer & Student fascinated with embedded systems, low-level software, and everything to do with the hardware-software interface."
+welcomeMessage = ""
 
 
 #### CONFIGURATION

@@ -1,6 +1,6 @@
 ---
 layout: post
-tags: ["Say Hi","Vno"]
+tags: ["Blog"]
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
 math: false
