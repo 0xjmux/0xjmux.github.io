@@ -1,7 +1,7 @@
 ---
 layout: post
 tags: ["Blog"]
-title: "Hello World"
+title: "Hello, World!"
 date: 2024-01-10
 math: false
 draft: false
