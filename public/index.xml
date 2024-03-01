@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jacob Bokor</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Jacob Bokor</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 Mar 2024 10:17:11 -0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JTAG for the ESP made as Easy as Possible</title>
+      <link>http://localhost:1313/posts/esp-jtag-adapter/</link>
+      <pubDate>Fri, 01 Mar 2024 10:17:11 -0800</pubDate>
+      <guid>http://localhost:1313/posts/esp-jtag-adapter/</guid>
+      <description>Adapter connected to PCB with SOICbite (Click image for Repo link!)&#xA;ESP-PROG Adapter Github Repo&#xA;One of the things I&#39;ve noticed in maker communities working with MCUs like the ESP32 is how infrequently hobbyists include JTAG in their projects.&#xA;This is understandable, since I didn&#39;t start including it on my own hobby projects until I started working in embedded SwE. Plus, the process of figuring out how to set it up and get the pinout right can be kind of daunting.</description>
+    </item>
+    <item>
+      <title>Hello, World!</title>
+      <link>http://localhost:1313/posts/hello-world/</link>
+      <pubDate>Wed, 10 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/hello-world/</guid>
+      <description>Welcome to my new website! My old one hadn&#39;t been updated in *checks notes* nearly 8 years, so it was definitely time for a refresh.&#xA;I&#39;ve included some stuff I&#39;ve written in the previous year, along with links to my Github - I usually try to do a good job documenting my projects inside their own repositories, so there&#39;s definitely a couple things that aren&#39;t on here that are worth a look.</description>
+    </item>
+    <item>
+      <title>Cadence Virtuoso Tips</title>
+      <link>http://localhost:1313/posts/cadence-virtuoso-tips/</link>
+      <pubDate>Thu, 18 May 2023 17:59:35 -0800</pubDate>
+      <guid>http://localhost:1313/posts/cadence-virtuoso-tips/</guid>
+      <description>These are my personal notes from taking EECS119 and using Cadence Virtuoso. The way most tutorials show you how to do it is bizarre, and not at all how the software is supposed to be used. I had to figure a lot of this out by trial and error, and wanted to save others the trouble for the future. This obviously doesn&#39;t cover everything and I&#39;m still very much a beginner when it comes to using Cadence, but should be helpful for those in EECS119 or just starting out with VLSI.</description>
+    </item>
+  </channel>
+</rss>

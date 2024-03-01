@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RaspberryPi on Jacob Bokor</title>
+    <link>http://localhost:1313/tags/raspberrypi/</link>
+    <description>Recent content in RaspberryPi on Jacob Bokor</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 Nov 2023 17:33:32 -0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/raspberrypi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Making LEDs React to Music: Configuring LEDFx and Spotifyd on the Raspberry Pi</title>
+      <link>http://localhost:1313/posts/ledfx-spotifyd-guide/</link>
+      <pubDate>Mon, 20 Nov 2023 17:33:32 -0800</pubDate>
+      <guid>http://localhost:1313/posts/ledfx-spotifyd-guide/</guid>
+      <description>This was originally a rough guide I made for myself to retrace my steps in case I needed to re-build my LEDFx setup at some point. I ended up polishing it up and publishing it as a Gist at the request of some people in the LEDFx discord, and since people seemed to find it so helpful I&#39;m re-publishing it here.&#xA;If it looks a lot like the LEDFx documentation&#39;s installation instructions, that&#39;s because I&#39;ve also contributed it upstream.</description>
+    </item>
+  </channel>
+</rss>

@@ -53,6 +53,7 @@ h5 {
   font-family: $serif-font;
   font-weight: lighter;
   color: $gray-darkest;
+  text-align: left;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -337,4 +338,8 @@ hr {
 
 .hidden {
   display: none !important;
+}
+
+figcaption {
+    text-align: center;
 }

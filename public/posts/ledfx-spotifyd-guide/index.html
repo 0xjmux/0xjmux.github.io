@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+
+    
+    
+    <title>Making LEDs React to Music: Configuring LEDFx and Spotifyd on the Raspberry Pi - Jacob Bokor</title>
+    
+    
+    <meta name="author" content="Jacob Bokor" /> 
+     
+    
+    <meta name="description" content="Setting up LEDFx and Spotifyd to build a Spotify Connect speaker that drives music-reactive LED strips." /> 
+    
+    
+    <meta name="keywords" content="Blog, LEDs, RaspberryPi" />
+    
+    <meta property="og:title" content="Making LEDs React to Music: Configuring LEDFx and Spotifyd on the Raspberry Pi" />
+<meta property="og:description" content="Setting up LEDFx and Spotifyd to build a Spotify Connect speaker that drives music-reactive LED strips." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/ledfx-spotifyd-guide/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-20T17:33:32-08:00" />
+<meta property="article:modified_time" content="2023-11-20T17:33:32-08:00" />
+
+
+    <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Making LEDs React to Music: Configuring LEDFx and Spotifyd on the Raspberry Pi"/>
+<meta name="twitter:description" content="Setting up LEDFx and Spotifyd to build a Spotify Connect speaker that drives music-reactive LED strips."/>
+
+
+    
+    
+    
+    
+
+    
+    
+    <link rel="stylesheet" href="http://localhost:1313/scss/main.min.f823acd0b40c9627cee16e4f8bd3272fbf36df3abe4a34e2161c9989e694477e.css" integrity="sha256-&#43;COs0LQMlifO4W5Pi9MnL7823zq&#43;SjTiFhyZieaUR34=" crossorigin="anonymous" media="screen">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="http://localhost:1313/css/block.css">
+</head>
+
+  
+</head>
+<body>
+  <span class="mobile btn-mobile-menu">
+
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+
+  </span>
+
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
+
+    <div class="panel-main">
+  
+      <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+  
+          <a href="/" title="Homepage of Jacob Bokor " class="blog-button"><img src="/images/avatar.jpg" width="80" alt="Jacob Bokor logo" class="panel-cover__logo logo" /></a>
+          <h1 class="panel-cover__title panel-title"><a href="/#blog" title="Homepage of Jacob Bokor" class="blog-button">Jacob Bokor</a></h1>
+          
+          <hr class="panel-cover__divider" />
+          <p class="panel-cover__description">Engineer &amp; Student fascinated with embedded systems, low-level software, and everything to do with the hardware-software interface.</p>
+          <hr class="panel-cover__divider panel-cover__divider--secondary" />
+          
+          
+          
+          <div class="navigation-wrapper">
+            <div>
+              <nav class="cover-navigation cover-navigation--primary">
+                <ul class="navigation">
+                  <li class="navigation__item"><a href="/#blog" title="Blog" class="blog-button">Blog</a></li>
+                  
+                    <li class="navigation__item"><a href="https://github.com/0xjmux" target="_blank" title="Projects">Projects</a></li>
+                  
+                    <li class="navigation__item"><a href="/tags/" target="_blank" title="Tags">Tags</a></li>
+                  
+                </ul>
+              </nav>
+            </div>
+            
+            <div><nav class="cover-navigation navigation--social">
+    <ul class="navigation">
+  
+    
+  
+    
+    
+    <li class="navigation__item">
+      <a href="https://github.com/0xjmux" title="@0xjmux" target="_blank">
+        <i class='social fa fa-github'></i>
+        <span class="label">Github</span>
+      </a>
+    </li>
+    
+    
+    
+
+    
+    
+    <li class="navigation__item">
+      <a href="https://www.linkedin.com/in/jacobbokor" title="@jacobbokor" target="_blank">
+        <i class='social fa fa-linkedin'></i>
+        <span class="label">Linkedin</span>
+      </a>
+    </li>
+    
+  
+    
+  
+    
+    <li class="navigation__item">
+      <a href="/index.xml" rel="author" title="RSS" target="_blank">
+        <i class='social fa fa-rss'></i>
+        <span class="label">RSS</span>
+      </a>
+    </li>
+  
+    
+    
+    <li class="navigation__item">
+      <a href="mailto:jacob%20at%20jacobbokor%20dot%20com" title="Contact me">
+        <i class='social fa fa-envelope'></i>
+        <span class="label">Email</span>
+      </a>
+    </li>
+    
+  
+    </ul>
+  </nav>
+  </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="panel-cover--overlay cover-slate"></div>
+      
+    </div>
+  </header>
+  
+
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+
+        
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <div class="post-meta">
+            <time datetime=" 2023-11-20 17:33:32 -0800 " itemprop="datePublished" class="post-meta__date date">2023-11-20</time>
+             <span class="post-meta__tags tags">   • <a href="http://localhost:1313/tags/blog">Blog</a>   • <a href="http://localhost:1313/tags/leds">LEDs</a>   • <a href="http://localhost:1313/tags/raspberrypi">RaspberryPi</a>  </span> 
+        </div>
+        <h1 class="post-title">Making LEDs React to Music: Configuring LEDFx and Spotifyd on the Raspberry Pi</h1>
+    </header>
+    <section class="post">
+        <p>This was originally a rough guide I made for myself to retrace my steps in case I needed to re-build my LEDFx setup at some point. I ended up polishing it up and publishing it as a <a href="https://gist.github.com/0xjmux/e5f49cb756ab94540df6637b77af8ee1">Gist</a> at the request of some people in the LEDFx discord, and since people seemed to find it so helpful I'm re-publishing it here.</p>
+<p>If it looks a lot like the LEDFx documentation's installation instructions, that's because I've also contributed it upstream. LEDFx is why my iot_leddriver_hw switched directions, and is a really cool project. It was already more full featured than I was planning on making my Spotify Visualizer firmware, and upstream community contribution is always a good thing :)</p>
+<p>This project wasn't difficult, but it also wasn't necessarily straightforward. The main problems I ran into were with Linux audio (to absolutely no ones surprise) and having to recompile dependencies to get them to work. Additionally the whole process of setting up a user daemon and getting everything to play nice can be a bit challenging, especially for those new to Linux; so I've put together a reasonably thorough installation guide below.</p>
+<h1 id="installation">Installation</h1>
+<p>This setup was tested on 2023-11-20 on a Raspberry Pi 4 with Raspberry Pi OS Lite 2023-10-10 (Debian 12 Bookworm).</p>
+<blockquote>
+<p>[!TIP]
+Music visualization requires a good amount of processing power to work without significant lag. Anything older than a Pi 4 is not recommended.</p>
+</blockquote>
+<p>This guide goes over the installation of both Spotifyd  and Ledfx. Spotifyd allows you to use your Pi as a Spotify connect speaker, but can be replaced with whatever audio source you plan to use - but since most of the problems people encounter are with audio setup and not LedFX itself, showing the entire process should be helpful.</p>
+<h3 id="1-updates-and-dependencies">1. Updates and dependencies</h3>
+<p>Starting with a fresh installation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>apt update <span style="color:#f92672">&amp;&amp;</span> sudo apt upgrade -y
+</span></span><span style="display:flex;"><span>apt install -y python3-pip python3-venv pulseaudio portaudio19-dev git
+</span></span><span style="display:flex;"><span>apt install libasound2-dev libssl-dev libpulse-dev libdbus-1-dev -y
+</span></span></code></pre></div><h3 id="2-set-up-user">2. Set up user</h3>
+<p>We create user <code>ledfx</code>  to run everything (including Pulseaudio and our Ledfx and Spotifyd services) to make handling permissions nice and easy.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>adduser ledfx
+</span></span><span style="display:flex;"><span>usermod -a -G pulse-access,pulse,plugdev,audio ledfx
+</span></span></code></pre></div><ol start="2">
+<li>Reboot so Pulseaudio will be available for next steps</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo reboot
+</span></span></code></pre></div><h3 id="3-set-up-pulseaudio">3. Set up Pulseaudio</h3>
+<ol start="2">
+<li>User login persistence (without <code>enable-linger</code>, desktop programs can't run without an active session)
+(as root)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>loginctl enable-linger ledfx
+</span></span></code></pre></div><ol start="3">
+<li>Edit <code>/etc/pulse/system.pa</code> and add a line to include <code>module-alsa-card</code></li>
+</ol>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">### Automatically restore the volume of streams and devices  
+load-module module-device-restore  
+...
+load-module module-alsa-card
+</code></pre><p>Exit root and change back to user.</p>
+<ol start="3">
+<li>(as user) Test Pulseaudio</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pulseaudio -D
+</span></span></code></pre></div><ol>
+<li>Logout from SSH session and login to <code>ledfx</code> account over ssh (See <a href="#error-failed-to-initialize-dbus-connection">Failed to initialize DBus connection Error</a> below.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>logout
+</span></span><span style="display:flex;"><span>ssh ledfx@<span style="color:#f92672">[</span>IP ADDR<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h3 id="4-set-up-spotifyd">4. Set up spotifyd</h3>
+<ul>
+<li><a href="https://github.com/Spotifyd/spotifyd/releases">Github Releases · Spotifyd/spotifyd</a></li>
+<li><a href="https://docs.spotifyd.rs/installation/index.html">Installation Instructions - Spotifyd Docs</a></li>
+<li><a href="https://docs.spotifyd.rs/installation/Raspberry-Pi.html">Installing on a Raspberry Pi - Spotifyd Docs</a> (doesn't completely work as of 11/13/23)</li>
+</ul>
+<blockquote>
+<p>[!Note]
+As of 2023-11-15, I had to compile spotifyd from source with all the features I needed to get it to work on the pi, none of the prebuilt binaries I tried would run. By the time you are reading this, that might have changed.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># install rust through rustup</span>
+</span></span><span style="display:flex;"><span>curl --proto <span style="color:#e6db74">&#39;=https&#39;</span> --tlsv1.2 -sSf https://sh.rustup.rs | sh
+</span></span><span style="display:flex;"><span>cd spotifyd
+</span></span></code></pre></div><ol start="2">
+<li>Compile from source with the pulseaudio backend</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cargo build --release --no-default-features --features pulseaudio_backend,dbus_keyring,dbus_mpris
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cargo install --path . --locked
+</span></span></code></pre></div><p>2.1. Copy Spotifyd to location in default path</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cp spotifyd /usr/local/bin/
+</span></span></code></pre></div><ol start="3">
+<li>Set up user service</li>
+</ol>
+<ul>
+<li><a href="https://raw.githubusercontent.com/Spotifyd/spotifyd/master/contrib/spotifyd.service">spotifyd.service - Recommended Systemd config from Spotifyd</a></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>wget https://raw.githubusercontent.com/Spotifyd/spotifyd/master/contrib/spotifyd.service
+</span></span></code></pre></div><ol start="4">
+<li>Set up Spotifyd config file</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mkdir -p ~/.config/systemd/user/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># use this config file to modify necessary parameters; see link to spotifyd docs below</span>
+</span></span><span style="display:flex;"><span>vim ~/.config/systemd/user/spotifyd.service
+</span></span></code></pre></div><p>Remember to modify the <code>ExecStart=</code> to the path of your <code>spotifyd</code> executable</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>ExecStart<span style="color:#f92672">=</span>/usr/local/bin/spotifyd --no-daemon
+</span></span></code></pre></div><ul>
+<li>For information on Spotifyd configuration, see: <a href="https://docs.spotifyd.rs/config/File.html">Configuration file - Spotifyd Docs</a></li>
+</ul>
+<ol start="5">
+<li>Start Spotifyd service</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># Test service to see if there are any errors</span>
+</span></span><span style="display:flex;"><span>./spotifyd --no-daemon
+</span></span></code></pre></div><ol start="6">
+<li>Set up as Systemd service so it starts on boot</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># Once it works (or gives dbus error) set up as systemd service</span>
+</span></span><span style="display:flex;"><span>systemctl --user enable spotifyd.service --now
+</span></span><span style="display:flex;"><span>systemctl --user enable spotifyd.service 
+</span></span><span style="display:flex;"><span>systemctl --user daemon-reload
+</span></span><span style="display:flex;"><span>vim .config/systemd/user/spotifyd.service 
+</span></span><span style="display:flex;"><span>chown root:ledfx .config/systemd/user/spotifyd.service
+</span></span><span style="display:flex;"><span>systemctl --user start spotifyd.service
+</span></span></code></pre></div><ul>
+<li>See <a href="/posts/ledfx-spotifyd-guide/#pulseaudio-issues">Pulseaudio issues</a> below if you have issues</li>
+</ul>
+<h3 id="5-prepare-python-environment">5. Prepare python environment</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python -m venv .ledfx
+</span></span><span style="display:flex;"><span>source .ledfx/bin/activate
+</span></span><span style="display:flex;"><span>python -m pip install --upgrade pip wheel setuptools
+</span></span><span style="display:flex;"><span>pip install numpy~<span style="color:#f92672">=</span>1.23
+</span></span></code></pre></div><p>(recommended): Activate the ledfx python venv on login</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;source </span>$HOME<span style="color:#e6db74">/.ledfx/bin/activate&#34;</span> &gt;&gt; .bashrc
+</span></span></code></pre></div><h4 id="51-optional-install-python-mbedtls">5.1 (Optional) Install python-mbedtls</h4>
+<blockquote>
+<p>[!NOTE]
+This step is optional, and only needed if you're going to use LEDFx with Phillips Hue lights. This library can cause issues during installation (since it doesn't provide a precompiled ARM binary), so <strong>unless you are using HUE bulbs installing it is not recommended.</strong></p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/Synss/python-mbedtls.git <span style="color:#f92672">&amp;&amp;</span> cd python-mbedtls/
+</span></span><span style="display:flex;"><span>./scripts/download-mbedtls.sh 2.28.3 ~/.local/src
+</span></span><span style="display:flex;"><span>sudo ./scripts/install-mbedtls.sh ~/.local/src
+</span></span><span style="display:flex;"><span>export C_INCLUDE_PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/usr/local/include&#34;</span>
+</span></span><span style="display:flex;"><span>export LIBRARY_PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/usr/local/lib&#34;</span>
+</span></span></code></pre></div><h3 id="6-install-ledfx">6. Install LEDFx</h3>
+<p>Install the latest version from git:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pip install git+https://github.com/LedFx/LedFx
+</span></span></code></pre></div><p>(Alternatively, Install the latest release available on Pypi)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pip install ledfx
+</span></span></code></pre></div><h3 id="7-set-up-ledfx-as-systemd-daemon">7. Set up LEDFx as systemd daemon</h3>
+<p>Create a new file at <code>~/.config/systemd/user/ledfx.service</code> and add the following:</p>
+<pre tabindex="0"><code>[Unit]  
+Description=LedFx Music Visualizer  
+After=network.target sound.target  
+Wants=sound.target  
+After=sound.target  
+Wants=network-online.target  
+After=network-online.target  
+StartLimitIntervalSec=0  
+  
+[Service]  
+Type=simple  
+Restart=always  
+RestartSec=5  
+ExecStart=/home/ledfx/.ledfx/bin/python /home/ledfx/.ledfx/bin/ledfx -v  
+  
+[Install]  
+WantedBy=default.target
+</code></pre><p>Test your service:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>systemctl start --user ledfx
+</span></span><span style="display:flex;"><span>systemctl status --user ledfx
+</span></span></code></pre></div><p>Now, connect to the Spotify connect speaker on your network and give it a test!</p>
+<h3 id="8-finishing-touches">8. Finishing Touches</h3>
+<p>Now that you're done, you should:</p>
+<ul>
+<li><a href="https://www.linuxcapable.com/how-to-configure-unattended-upgrades-on-ubuntu-linux/">Configure unattended-upgrades so your Pi can apply non-breaking updates itself</a></li>
+<li>Plan to log in every couple weeks to update LEDFx, since releases are frequent:</li>
+</ul>
+<p>(as <code>ledfx</code> user)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pip install -U ledfx
+</span></span></code></pre></div><h1 id="troubleshooting">Troubleshooting</h1>
+<h2 id="spotifyd">Spotifyd</h2>
+<p>The issues listed here are mostly related to getting LedFx and spotifyd working with pulseaudio on the Pi, since that's where there seems to be the most issues.</p>
+<h3 id="error-failed-to-initialize-dbus-connection">Error: Failed to initialize DBus connection</h3>
+<p>Error: <code>Failed to initialize DBus connection: D-Bus error: Unable to autolaunch a dbus-daemon without a $DISPLAY for X11</code></p>
+<ul>
+<li>This error happens because we're using a <code>ledfx</code> user account to run the service, but haven't &quot;fully&quot; logged in yet, so some environment variables (like <code>$XDG_RUNTIME_DIR</code>) haven't been created yet. <a href="https://unix.stackexchange.com/questions/615917/failed-to-get-d-bus-connection-connection-refused">1</a></li>
+<li>To fix this, log out, and log in as the <code>ledfx</code> user over ssh.</li>
+</ul>
+<h3 id="pulseaudio-issues">Pulseaudio issues</h3>
+<p>Try:</p>
+<ul>
+<li>make sure pulseaudio is running as user service
+<ul>
+<li>Or, try running manually with <code>pulseaudio -D</code> (background)</li>
+<li>look at logs for user pulseaudio service:
+<code>journalctl -xe --user-unit pulseaudio</code></li>
+</ul>
+</li>
+<li><code>pactl info</code> for server and running pulseaudio session info</li>
+<li><code>pactl list-cards</code> to list audio cards</li>
+<li><code>pacmd list-sinks</code> to list output devices
+<ul>
+<li>Make sure your device is set as default</li>
+<li>try <code>raspi-config</code> to set it, or modify it using pulseaudio</li>
+</ul>
+</li>
+<li><a href="https://wiki.archlinux.org/title/PulseAudio/Examples#Set_the_default_output_sink">PulseAudio Wiki: Set default output sink</a></li>
+</ul>
+<h4 id="pulseaudio-failed-to-load-module-alsa-card">Pulseaudio: failed to load <code>module-alsa-card</code></h4>
+<ul>
+<li>this warning/error shows up when running on the Pi. The HDMI outputs will continue to have it (since there's nothing connected) but I was able to resolve it for the interface I'm using by adding</li>
+</ul>
+<ul>
+<li><a href="https://bbs.archlinux.org/viewtopic.php?id=259938">Relevant ArchWiki Post: Pulseaudio: failed to load module-alsa-card</a></li>
+</ul>
+<h2 id="ledfx">LEDFx</h2>
+<p>I've had some issues the last few weeks with LEDFx crashes, and since (from experience teaching people Linux through CCDC) I know figuring out crashes can be a bit obtuse, I'm going to leave some tips here.</p>
+<h3 id="diagnosing-errors">Diagnosing Errors</h3>
+<p>The first thing you should do is check the service status.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>systemctl status --user ledfx
+</span></span><span style="display:flex;"><span>systemctl status --user spotifyd
+</span></span></code></pre></div><p>If the status isn't <code>active</code>, something's wrong. To look at the logs, you can use:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>journalctl --user -xe
+</span></span></code></pre></div><p>One of the things I find helpful is to watch the logs in realtime when trying to debug a process. To do this, you can use something like <code>tmux</code> (<code>apt install tmux -y</code>) to have two terminal windows; on one of them, run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>journalctl --user -f
+</span></span></code></pre></div><p>And then on the other, restart the service with</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>systemctl --user restart ledfx
+</span></span></code></pre></div><h3 id="fixing-issues">Fixing issues</h3>
+<ol>
+<li>First, check the <a href="https://ledfx.readthedocs.io/en/stable/trouble.html#ledfx-configuration-file">LEDFx Docs Troubleshooting section</a> to see if what you're struggling with is mentioned there.</li>
+<li>Look at <a href="https://github.com/LedFx/LedFx/issues">open issues on Github</a> to see if this has been reported already - if not, open an issue so it can be fixed!</li>
+<li>If not, the issue might be in your configurations - check to make sure they're valid.</li>
+<li>Ask for help in the <a href="https://discord.com/invite/xyyHEquZKQ">LEDFx discord</a></li>
+</ol>
+
+    </section>
+</article>
+<section class="read-more">
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Recent</span>
+        <h2 class="post-list__post-title post-title"><a href="/posts/hello-world/" title="link to Hello, World!">Hello, World!</a></h2>
+        <p class="excerpt">Welcome to my new website! My old one hadn't been updated in *checks notes* nearly 8 years, so it was definitely time for a refresh.
+I've included some stuff I've written in the previous year, along with links to my Github - I usually try to do a …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-11-20 17:33:32 -0800" class="post-list__meta--date date">2024-01-10</time>
+             <span class="post-list__meta--tags tags">   • <a href="http://localhost:1313/tags/blog">Blog</a>  </span> 
+            <a class="btn-border-small" href="/posts/hello-world/">Continue</a>
+        </div>
+    </div>
+    
+
+
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Earlier</span>
+        <h2 class="post-list__post-title post-title"><a href="/posts/cadence-virtuoso-tips/" title="link to Cadence Virtuoso Tips">Cadence Virtuoso Tips</a></h2>
+        <p class="excerpt">These are my personal notes from taking EECS119 and using Cadence Virtuoso. The way most tutorials show you how to do it is bizarre, and not at all how the software is supposed to be used. I had to figure a lot of this out by trial and error, and …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-11-20 17:33:32 -0800" class="post-list__meta--date date">2023-05-18</time>
+             
+            <span class="post-list__meta--tags tags"> 
+                  • <a href="http://localhost:1313/tags/blog">Blog</a>  
+            </span>
+            
+            <a class="btn-border-small" href="/posts/cadence-virtuoso-tips/">Continue</a>
+        </div>
+    </div>
+    
+ </section>
+  
+<section class="post-comments">
+    
+
+    
+    
+  </section>
+  
+
+        <section class="footer">
+    <footer>
+        <span class="footer__copyright">This site is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> license.</span>
+        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2024-03-01, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
+    </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script><script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'your_ga_id', 'your_host');
+    ga('send', 'pageview');
+</script>
+
+  
+</body>
+

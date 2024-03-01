@@ -16,8 +16,13 @@ defaultContentLanguage = 'en-us'
 [markup.goldmark]
     [markup.goldmark.extensions]
       typographer = false
+    [markup.goldmrk.renderer]
+      unsafe = true
 #    [markup.goldmark.extensions.typographer]
 #        apostrophe = '&rsquo;'
+
+
+
 
 
 # Pagination
@@ -52,11 +57,13 @@ welcomeMessage = ""
 
 #### CONFIGURATION
 
+# https://discourse.gohugo.io/t/how-to-override-css-classes-with-hugo/3033/2
 
 
 
 # supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
 coverColor = "slate"
+custom_css = ["css/block.css"]
 
 [params.comment]
 disqus = ""
@@ -88,5 +95,5 @@ description = "Visit blog"
 license = 'CC BY-NC-SA 4.0'
 license_link = 'http://creativecommons.org/licenses/by-nc-sa/4.0/'
 
-[permalinks]
-posts = "/:year/:month/:title/"
+#[permalinks]
+#posts = "/:year/:month/:title/"

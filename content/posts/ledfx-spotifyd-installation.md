@@ -1,6 +1,7 @@
 ---
 layout: post
 tags: ["Blog","LEDs","RaspberryPi"]
+slug: ledfx-spotifyd-guide
 title: "Making LEDs React to Music: Configuring LEDFx and Spotifyd on the Raspberry Pi"
 description: "Setting up LEDFx and Spotifyd to build a Spotify Connect speaker that drives music-reactive LED strips."
 date: 2023-11-20T17:33:32-08:00
@@ -12,8 +13,6 @@ This was originally a rough guide I made for myself to retrace my steps in case 
 If it looks a lot like the LEDFx documentation's installation instructions, that's because I've also contributed it upstream. LEDFx is why my iot_leddriver_hw switched directions, and is a really cool project. It was already more full featured than I was planning on making my Spotify Visualizer firmware, and upstream community contribution is always a good thing :)
 
 This project wasn't difficult, but it also wasn't necessarily straightforward. The main problems I ran into were with Linux audio (to absolutely no ones surprise) and having to recompile dependencies to get them to work. Additionally the whole process of setting up a user daemon and getting everything to play nice can be a bit challenging, especially for those new to Linux; so I've put together a reasonably thorough installation guide below. 
-
-
 
 
 # Installation
@@ -215,7 +214,7 @@ pip install -U ledfx
 
 # Troubleshooting
 ## Spotifyd
-The issues listed here are mostly related to getting LedFx and spotifyd working with pulseaudio on the Pi. Fore more LEDFx specific issues, see [LEDFX: Troubleshooting](https://ledfx.readthedocs.io/en/stable/trouble.html). 
+The issues listed here are mostly related to getting LedFx and spotifyd working with pulseaudio on the Pi, since that's where there seems to be the most issues. 
 
 ### Error: Failed to initialize DBus connection
 Error: `Failed to initialize DBus connection: D-Bus error: Unable to autolaunch a dbus-daemon without a $DISPLAY for X11`

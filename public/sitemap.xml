@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>http://localhost:1313/tags/blog/</loc>
+    <lastmod>2024-03-01T10:17:11-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/hardware/</loc>
+    <lastmod>2024-03-01T10:17:11-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2024-03-01T10:17:11-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/jtag/</loc>
+    <lastmod>2024-03-01T10:17:11-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/esp-jtag-adapter/</loc>
+    <lastmod>2024-03-01T10:17:11-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/pcb/</loc>
+    <lastmod>2024-03-01T10:17:11-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2024-03-01T10:17:11-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2024-03-01T10:17:11-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/hello-world/</loc>
+    <lastmod>2024-01-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/cadence-virtuoso-tips/</loc>
+    <lastmod>2023-05-18T17:59:35-08:00</lastmod>
+  </url>
+</urlset>
