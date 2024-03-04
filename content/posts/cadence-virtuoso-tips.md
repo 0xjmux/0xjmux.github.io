@@ -1,8 +1,8 @@
 ---
 layout: post
-tags: ["Blog"]
+tags: ["Blog","Old","VLSI"]
 title: "Cadence Virtuoso Tips"
-description: Usage tips for the Cadence Virtuoso VLSI software for students taking UCI's EECS119.
+summary: "Usage tips for the Cadence Virtuoso VLSI software for students in EECS119"
 date: 2023-05-18T17:59:35-08:00
 math: false
 draft: false

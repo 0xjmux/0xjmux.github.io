@@ -3,7 +3,7 @@ layout: post
 tags: ["Blog","LEDs","RaspberryPi"]
 slug: ledfx-spotifyd-guide
 title: "Making LEDs React to Music: Configuring LEDFx and Spotifyd on the Raspberry Pi"
-description: "Setting up LEDFx and Spotifyd to build a Spotify Connect speaker that drives music-reactive LED strips."
+summary: "Setting up LEDFx and Spotifyd to build a Spotify Connect speaker that drives music-reactive LED strips."
 date: 2023-11-20T17:33:32-08:00
 math: false
 draft: true

@@ -4,7 +4,13 @@
         {{ range .Paginator.Pages }}
         <li>
             <h2 class="post-list__post-title post-title"><a href="{{ .RelPermalink }}" title="To {{ .RelPermalink }}">{{ .Title }}</a></h2>
-            <p class="excerpt">{{ .Summary | truncate 250 }}&hellip;</p>
+            <p class="excerpt">
+            {{ .Summary | truncate 250 }}
+            {{ if .Truncated }} 
+                &hellip;</p>
+            {{ else }}
+                </p>
+            {{ end }}
             <div class="post-list__meta">
                 <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 -0700 " }}" class="post-list__meta--date date">{{ .Date.Format "2006-01-02" }}</time>
                 {{ with .Params.tags }} <span class="post-list__meta--tags tags"> {{ range . }}  • <a href="{{ "tags" | absURL }}/{{ . | urlize }}">{{ . }}</a> {{ end }} </span> {{ end }}

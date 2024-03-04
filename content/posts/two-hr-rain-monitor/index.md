@@ -2,6 +2,7 @@
 layout: post
 tags: ["Blog"]
 title: "Hacking together a live Rainfall Monitor in 2 hours to chart a historic California rainstorm"
+summary: "Rapid protyping of a rainfall sensor to chart a once-in-a-decade rainstorm"
 date: 2024-02-06T10:38:31-08:00
 math: false
 draft: true

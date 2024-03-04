@@ -2,6 +2,7 @@
 layout: post
 tags: ["Blog"]
 title: "Hello, World!"
+summary: "Welcome to my new website!"
 date: 2024-01-10
 math: false
 draft: false

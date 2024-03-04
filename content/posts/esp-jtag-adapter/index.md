@@ -2,6 +2,7 @@
 layout: post
 tags: ["Blog","JTAG","PCB","Hardware"]
 title: "JTAG for the ESP made as Easy as Possible"
+summary: "An adapter PCB for the ESP-Prog to make hardware debugging on ESP32 as plug-and-play as possible"
 date: 2024-03-01T10:17:11-08:00
 math: false
 draft: false
