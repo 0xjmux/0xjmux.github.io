@@ -6,11 +6,11 @@ title: "Making LEDs React to Music: Configuring LEDFx and Spotifyd on the Raspbe
 summary: "Setting up LEDFx and Spotifyd to build a Spotify Connect speaker that drives music-reactive LED strips."
 date: 2023-11-20T17:33:32-08:00
 math: false
-draft: true
+draft: false
 ---
 This was originally a rough guide I made for myself to retrace my steps in case I needed to re-build my LEDFx setup at some point. I ended up polishing it up and publishing it as a [Gist](https://gist.github.com/0xjmux/e5f49cb756ab94540df6637b77af8ee1) at the request of some people in the LEDFx discord, and since people seemed to find it so helpful I'm re-publishing it here. 
 
-If it looks a lot like the LEDFx documentation's installation instructions, that's because I've also contributed it upstream. LEDFx is why my iot_leddriver_hw switched directions, and is a really cool project. It was already more full featured than I was planning on making my Spotify Visualizer firmware, and upstream community contribution is always a good thing :)
+<!-- If it looks a lot like the LEDFx documentation's installation instructions, that's because I've also contributed it upstream. LEDFx is why my iot_leddriver_hw switched directions, and is a really cool project. It was already more full featured than I was planning on making my Spotify Visualizer firmware, and upstream community contribution is always a good thing :) -->
 
 This project wasn't difficult, but it also wasn't necessarily straightforward. The main problems I ran into were with Linux audio (to absolutely no ones surprise) and having to recompile dependencies to get them to work. Additionally the whole process of setting up a user daemon and getting everything to play nice can be a bit challenging, especially for those new to Linux; so I've put together a reasonably thorough installation guide below. 
 
