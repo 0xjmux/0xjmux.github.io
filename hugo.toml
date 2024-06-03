@@ -40,8 +40,8 @@ disableKinds=["sitemap","comment"]
     identifier = "projects"
     url = "https://github.com/0xjmux"
     weight = 10
- [[menu.main]]
-    name = "Tags"
+ [[menu.hidden]]
+#    name = "Tags"
     identifier = "Tags"
     url = "/tags/"
     weight = 20
