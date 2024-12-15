@@ -1,4 +1,0 @@
-baseURL = 'https://jacobbokor.com/'
-languageCode = 'en-us'
-title = "Jacob Bokor's Portfolio"
-theme='vno-hugo'

@@ -51,7 +51,9 @@ disableKinds=["sitemap","comment"]
 [params]
 author = "Jacob Bokor"
 subtitle = ""
-description = "Engineer & Student fascinated with embedded systems, low-level software, and everything to do with the hardware-software interface."
+description = "Embedded software engineer, hardware hobbyist, low-level software enjoyer. I love building things."
+#description = "Embedded software engineer, hardware hobbyist, low-level software enjoyer. Addicted to building."
+# Engineer & Student fascinated with embedded systems, low-level software, and everything to do with the hardware-software interface."
 welcomeMessage = ""
 
 

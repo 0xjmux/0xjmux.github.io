@@ -1,0 +1,31 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml # checks yaml files for parseable syntax.
+      - id: detect-private-key # detects the presence of private keys.
+      - id: mixed-line-ending # replaces or checks mixed line ending.
+      - id: requirements-txt-fixer # sorts entries in requirements.txt.
+      - id: check-shebang-scripts-are-executable  # ensures that (non-binary) files with a shebang are executable.
+      - id: check-added-large-files
+        args: ["--maxkb=2500"]
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.23.6
+    hooks:
+      - id: typos
+  # don't track jupyter notebook outputs
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.5.0
+    hooks:
+      - id: nbstripout
+  - repo: local
+    hooks:
+      - id: check_for_do_not_commit
+        name: Check for things that shouldn't be committed into source control
+        entry: 'DO NOT COMMIT'
+        stages: [pre-commit]
+        language: pygrep
