@@ -47,11 +47,11 @@ disableKinds=["sitemap","comment"]
     weight = 20
 [taxonomies]
     tag = "tags"
-    
+
 [params]
 author = "Jacob Bokor"
 subtitle = ""
-description = "Embedded software engineer, hardware hobbyist, low-level software enjoyer. I love building things."
+description = "Embedded software engineer, hardware hobbyist, building things enjoyer"
 #description = "Embedded software engineer, hardware hobbyist, low-level software enjoyer. Addicted to building."
 # Engineer & Student fascinated with embedded systems, low-level software, and everything to do with the hardware-software interface."
 welcomeMessage = ""
