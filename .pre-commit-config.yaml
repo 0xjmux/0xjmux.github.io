@@ -7,9 +7,10 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml # checks yaml files for parseable syntax.
+      - id: check-toml
+      - id: check-json
       - id: detect-private-key # detects the presence of private keys.
       - id: mixed-line-ending # replaces or checks mixed line ending.
-      - id: requirements-txt-fixer # sorts entries in requirements.txt.
       - id: check-shebang-scripts-are-executable  # ensures that (non-binary) files with a shebang are executable.
       - id: check-added-large-files
         args: ["--maxkb=2500"]
@@ -29,3 +30,7 @@ repos:
         entry: 'DO NOT COMMIT'
         stages: [pre-commit]
         language: pygrep
+exclude: |
+  (?x)(
+    ^.pre-commit-config.yaml
+  )
