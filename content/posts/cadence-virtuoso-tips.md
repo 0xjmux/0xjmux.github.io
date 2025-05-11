@@ -74,8 +74,8 @@ All of the below Software screenshots were taken in LayoutXL.
 #### 3 input JK Flip-flop (used in EECS119 HW3)
  {{< figure width="500"  src="https://user-images.githubusercontent.com/20913473/240716335-e335b68e-94aa-4ba9-a031-2b659f5387e1.gif" >}}
 
-#### fish
- {{< figure width="500" src="https://user-images.githubusercontent.com/20913473/240716311-bdd6e1b1-c596-4570-a87e-1bf5b7f32264.jpg"  >}}
+<!-- #### fish
+ {{< figure width="500" src="https://user-images.githubusercontent.com/20913473/240716311-bdd6e1b1-c596-4570-a87e-1bf5b7f32264.jpg"  >}} -->
 
 ### Helpful Links
 * [Guide to Drawing Clean Schematics with Virtuoso](https://www.egr.msu.edu/classes/ece410/mason/files/guide-schematictips.pdf)

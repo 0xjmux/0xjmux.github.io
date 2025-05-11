@@ -7,7 +7,8 @@
         <div class="post-list__meta">
             <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 -0700" }}" class="post-list__meta--date date">{{ .Next.Date.Format "2006-01-02" }}</time>
             {{ with .Next.Params.tags }} <span class="post-list__meta--tags tags"> {{ range . }}  • <a href="{{ "tags" | absURL }}/{{ . | urlize }}">{{ . }}</a> {{ end }} </span> {{ end }}
-            <a class="btn-border-small" href="{{ .Next.RelPermalink }}">{{ T "continue" }}</a>
+            <!-- <a class="btn-border-small" href="{{ .Next.RelPermalink }}">{{ T "continue" }}</a> -->
+             <!-- the read button will render weird when there are too many tags -->
         </div>
     </div>
     {{ end }}
@@ -20,14 +21,13 @@
         <p class="excerpt">{{ .Prev.Summary | truncate 250}}&hellip;</p>
         <div class="post-list__meta">
             <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 -0700" }}" class="post-list__meta--date date">{{ .Prev.Date.Format "2006-01-02" }}</time>
-            {{ with .Prev.Params.tags }} 
-            <span class="post-list__meta--tags tags"> 
-                {{ range . }}  • <a href="{{ "tags" | absURL }}/{{ . | urlize }}">{{ . }}</a> {{ end }} 
+            {{ with .Prev.Params.tags }}
+            <span class="post-list__meta--tags tags">
+                {{ range . }}  • <a href="{{ "tags" | absURL }}/{{ . | urlize }}">{{ . }}</a> {{ end }}
             </span>
             {{ end }}
-            <a class="btn-border-small" href="{{ .Prev.RelPermalink }}">{{ T "continue" }}</a>
+            <!-- <a class="btn-border-small" href="{{ .Prev.RelPermalink }}">{{ T "continue" }}</a> -->
         </div>
     </div>
     {{ end }}
  </section>
- 
